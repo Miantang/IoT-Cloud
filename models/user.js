@@ -6,8 +6,8 @@ var Schema = mongoose.Schema;
 var strLenValidator = [
     validate({
         validator: 'isLength',
-        arguments: [2, 64],
-        message: '字符串长度范围是[2, 64]'
+        arguments: [1, 64],
+        message: '字符串长度范围是[1, 64]'
     })
 ];
 

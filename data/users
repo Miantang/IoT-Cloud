@@ -1,0 +1,3 @@
+{"k":"0000000078","o":"0000000170","v":"001"}
+{"_id":2,"_uid":2,"_dt":1437582534046,"_s":"5071d5e2344fef3cc18e69c054a0c2e7"}
+{"ukey":"2093a81e-7f87-4c41-9556-38ee0c6b63dd","qq":"admin","email":"admin@admin","username":"管理员","pwd":"admin","uid":"admin","_id":{"$wrap":"$oid","v":2},"__v":0}

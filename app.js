@@ -1,6 +1,4 @@
 var express = require('express');
-var mongoose = require('mongoose');
-
 var config = require('./config');
 
 // 准备数据库
@@ -11,6 +9,7 @@ String.prototype.startWith = function (str) {
 if (config.mongo.toString().startWith('tingodb')) {
     var tungus = require('tungus');
 }
+var mongoose = require('mongoose');
 mongoose.connect(config.mongo);
 var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'Connection error:'));

@@ -6,8 +6,8 @@ var Schema = mongoose.Schema;
 var strLenValidator = [
     validate({
         validator: 'isLength',
-        arguments: [2, 64],
-        message: '×Ö·û´®³¤¶È·¶Î§ÊÇ[2, 64]'
+        arguments: [1, 64],
+        message: '×Ö·û´®³¤¶È·¶Î§ÊÇ[1, 64]'
     })
 ];
 var DeviceSchema = new Schema({

@@ -43,16 +43,53 @@ DevicesRouter.route('/devices')
 });
 function putDevice (req, res) {
     if(config.mongo.toString().startWith('tingodb')) {
-        DeviceModel.findone({ id: req.params.id }, function (err, dv) {
+        DeviceModel.findOne({ id: req.params.id }, function (err, dv) {
             if(err) return console.error('DeviceModel Error: ' + err);
-
-        })
+            if(req.body.type === 'switch') {
+                dv.value = req.body.value;
+            } else {
+                //var value = JSON.parse(req.body.value);
+                //res.send(value);
+            }
+            dv.save(function (err) {
+                if(err) {
+                    if(!config.production) {
+                        res.send(err);
+                    } else {
+                        res.status(404);
+                        res.end();
+                    }
+                } else {
+                    res.end();
+                }
+            });
+        });
+        //DeviceModel.findOneAndUpdate({id: req.params.id})
     }
 }
 DevicesRouter.route('/devices/:id')
     .post(function (req, res) {
-        if (req.query.method === 'put') {
-
-        }
-    })
+        putDevice(req, res);
+})
+    .get(function (req, res) {
+        DeviceModel.findOne({id: req.params.id}, function (err, dv) {
+            if(err) {
+                if (!config.production) {
+                   res.send(err);
+                } else {
+                    res.status(404);
+                    res.end();
+                }
+            } else {
+                if(dv !== null) {
+                    var obj = dv.toObject();
+                    delete obj._id;
+                    delete obj.__v;
+                    res.json(obj);
+                } else {
+                    res.end();
+                }
+            }
+        })
+});
 module.exports = DevicesRouter;

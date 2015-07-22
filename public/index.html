@@ -1,4 +1,4 @@
-﻿<!doctype html>
+﻿<!DOCTYPE HTML>
 <html class="no-js">
 <head>
     <meta charset="utf-8">
@@ -10,13 +10,17 @@
     <meta name="renderer" content="webkit">
     <meta http-equiv="Cache-Control" content="no-siteapp" />
     <link rel="icon" type="image/png" href="assets/i/favicon.png">
-    <link rel="stylesheet" href="assets/css/amazeui.min.css">
-    <link rel="stylesheet" href="assets/css/app.css">
+    <link rel="apple-touch-icon-precomposed" href="assets/i/app-icon72x72@2x.png">
+    
     <link href="assets/js/footable/css/footable.core.min.css" rel="stylesheet" />
     <link href="assets/js/footable/css/footable.metro.min.css" rel="stylesheet" />
     <link href="assets/js/switch/css/style.css" rel="stylesheet" />
+    <!-- <link href="assets/js/jmobile/jquery.mobile-1.3.2.min.css" rel="stylesheet" /> -->
     <link href="assets/js/jquery-ui-1.11.2.custom/jquery-ui.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="assets/css/amazeui.min.css">
+  <!--   <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css"> -->
     <link rel="stylesheet" href="assets/css/range.css">
+    <link rel="stylesheet" href="assets/css/app.css">
     <!--[if lte IE 8]>
         <script src="assets/js/excanvas.js"></script>
     <![endif]-->
@@ -31,13 +35,10 @@
             <a href="#">智能物联</a>
         </h1>
         <div class="am-header-left am-header-nav">
-            <a data-bind="click: link_user, visible: showuinfo" href="#">
-                <i class="am-header-icon am-icon-user"></i>
-                <span class="am-header-nav-title" data-bind="text: uid"></span>
-            </a>
+            
             <a href="#" data-bind="click: gopage, visible: showback">
-                <i class="am-header-icon am-icon-chevron-left"></i>
-                <span class="am-header-nav-title">返回</span>
+                <i class="am-header-icon am-icon-chevron-left" style="font-size:14px"></i>
+                <span class="am-header-nav-title" >返回</span>
             </a>
         </div>
     </header>
@@ -49,47 +50,40 @@
         <div id="menu1" class="am-offcanvas">
             <div class="am-offcanvas-bar am-offcanvas-bar-flip">
                 <ul class="am-menu-nav am-avg-sm-1">
+                    <li class="">
+                        <a href="##"><i class="am-header-icon am-icon-user"></i>
+                            <span class="am-header-nav-title" data-bind="text: uid"></span>
+                        </a>
+                    </li>
+                    <li class="">
+                        <a data-bind="click: link_user_center" href="##">设备主页</a>
+                    </li>
                     <li data-bind="visible: showuser" class="am-parent">
-                        <a href="##">用户</a>
+                        <a href="##">子用户管理</a>
                         <ul class="am-menu-sub am-collapse  am-avg-sm-2 ">
                             <li class="">
-                                <a href="##" data-bind="click:link_acaddus">添加用户</a>
+                                <a href="##" data-bind="click:link_acaddus">添加子用户</a>
                             </li>
                             <li class="">
-                                <a href="##" data-bind="click:link_acuss">管理用户</a>
+                                <a href="##" data-bind="click:link_acuss">管理子用户</a>
                             </li>
                         </ul>
-                    </li>
-                    <li class="">
-                        <a data-bind="click: link_nav" href="##">快速指南</a>
-                    </li>
-                    <li class="">
-                        <a data-bind="click: link_user_center" href="##">我的设备</a>
-                    </li>
+                    </li> 
                     <li class="am-parent">
-                        <a href="##">账户</a>
+                        <a href="##">我的账户</a>
                         <ul class="am-menu-sub am-collapse  am-avg-sm-2 ">
                             <li class="">
-                                <a data-bind="click: link_account" href="##">我的账号设置</a>
+                                <a data-bind="click: link_account" href="##">账号设置</a>
                             </li>
                             <li class="">
                                 <a data-bind="click: link_accountEditPwd" href="##">修改密码</a>
                             </li>
                         </ul>
                     </li>
-                    <li class="am-parent">
-                        <a href="##">设备中心</a>
-                        <ul class="am-menu-sub am-collapse  am-avg-sm-2 ">
-                            <li class="">
-                                <a data-bind="click: link_adddv" href="##">增加新设备</a>
-                            </li>
-                            <li class="">
-                                <a data-bind="click: link_alldvs" href="##">管理设备</a>
-                            </li>
-                            <li class="">
-                                <a href="##">管理动作</a>
-                            </li>
-                        </ul>
+                    <li class="">
+                        <a data-bind="click: link_user, visible: showuinfo" href="#">
+                            <span class="am-header-nav-title">账户注销</span>
+                        </a>
                     </li>
                 </ul>
             </div>
@@ -121,11 +115,6 @@
         </div>
     </div>
     <!-- Content -->
-    <!-- Footer -->
-    <footer data-am-widget="footer" class="am-footer am-footer-default">
-        <div class="am-footer-miscs ">
-        </div>
-    </footer>
     <!-- Navbar -->
 
     <div data-am-widget="gotop" class="am-gotop am-gotop-fixed">
@@ -171,17 +160,11 @@
     <script src="assets/js/footable/js/footable.filter.min.js"></script>
     <script src="assets/js/footable/js/footable.paginate.min.js"></script>
     <script src="assets/js/jquery-ui-1.11.2.custom/jquery-ui.min.js"></script>
+
+    
+    <script src="assets/js/json2.js"></script>
     <script src="app.js"></script>
 
-    <style type="text/css">
-        #allmap {
-            width: 100%;
-            height: 300px;
-            overflow: hidden;
-            margin: 0;
-            font-family: "微软雅黑";
-        }
-    </style>
-    <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=QgsWorUjZhAGT4S0rs0BSPcw"></script>
+    <script src="assets/js/jquery.percentageloader-0.2.js"></script>
 </body>
 </html>

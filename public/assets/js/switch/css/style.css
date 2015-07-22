@@ -56,6 +56,7 @@ input.cmn-toggle-round + label {
   -ms-border-radius: 30px;
   -o-border-radius: 30px;
   border-radius: 30px;
+  margin: auto;
 }
 input.cmn-toggle-round + label:before, input.cmn-toggle-round + label:after {
   display: block;

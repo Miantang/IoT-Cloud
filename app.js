@@ -1,5 +1,14 @@
-var express = require('express');
+var app = require('express')();
 var config = require('./config');
+var bodyParser = require('body-parser');
+app.set('port', process.env.PORT || 3001);
+function defaultContentTypeMiddleware(req, res, next) {
+    req.headers['content-type'] = req.headers['content-type'] || 'application/json';
+    next();
+}
+app.use(defaultContentTypeMiddleware);
+app.use(bodyParser.json()); // for parsing application/json
+app.use(bodyParser.urlencoded({ extended: true })); // for parsing application/x-www-form-urlencoded
 
 // 准备数据库
 String.prototype.startWith = function (str) {
@@ -32,9 +41,6 @@ UserModel.findOne({ uid: "admin" }, function (err, u) {
     }
 });
 //开启express
-var app = express();
-
-app.set('port', process.env.PORT || 3001);
 
 var UserRouter = require('./handlers/UserRouter');
 var DeviceRouter = require('./handlers/DeviceRouter');

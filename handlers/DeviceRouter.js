@@ -1,5 +1,6 @@
 var express = require('express');
 var config = require('../config');
+
 var DevicesRouter = express.Router();
 var UserModel = require('../models/user');
 var DeviceModel = require('../models/device');
@@ -41,35 +42,36 @@ DevicesRouter.route('/devices')
             }
         })
 });
-function putDevice (req, res) {
-    if(config.mongo.toString().startWith('tingodb')) {
-        DeviceModel.findOne({ id: req.params.id }, function (err, dv) {
-            if(err) return console.error('DeviceModel Error: ' + err);
-            if(req.body.type === 'switch') {
-                dv.value = req.body.value;
-            } else {
-                //var value = JSON.parse(req.body.value);
-                //res.send(value);
-            }
-            dv.save(function (err) {
-                if(err) {
-                    if(!config.production) {
-                        res.send(err);
-                    } else {
-                        res.status(404);
-                        res.end();
-                    }
-                } else {
-                    res.end();
-                }
-            });
-        });
-        //DeviceModel.findOneAndUpdate({id: req.params.id})
-    }
-}
+
 DevicesRouter.route('/devices/:id')
     .post(function (req, res) {
-        putDevice(req, res);
+        if(config.mongo.toString().startWith('tingodb')) {
+            DeviceModel.findOne({ id: req.params.id }, function (err, dv) {
+                if(err) return console.error('DeviceModel Error: ' + err);
+                for(var key in req.body) {
+                    console.log('key: ' + key + 'value: '+ req.body[key]);
+                }
+                if(req.body.type === 'switch') {
+                    dv.value = req.param('value');
+                    console.log("dv.value: " + dv.value);
+                } else {
+                    //var value = JSON.parse(req.body.value);
+                    //res.send(value);
+                }
+                dv.save(function (err) {
+                    if(err) {
+                        if(!config.production) {
+                            res.send(err);
+                        } else {
+                            res.status(404);
+                            res.end();
+                        }
+                    } else {
+                        res.end();
+                    }
+                });
+            });
+        }
 })
     .get(function (req, res) {
         DeviceModel.findOne({id: req.params.id}, function (err, dv) {

@@ -38,7 +38,7 @@
     "mongoose-auto-increment": "3.2.0",
     "mongoose-validator": "1.0.3",
 	"node-uuid": "1.4.2",
-	"tungus": "0.0.4",
+	"tungus": "^0.0.4",
     "validator": "3.24.0"
   }
 }

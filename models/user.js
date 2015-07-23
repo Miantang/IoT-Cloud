@@ -1,4 +1,5 @@
 ﻿var uuid = require('node-uuid');
+var crypto = require('crypto');
 var mongoose = require('mongoose');
 var validate = require('mongoose-validator');
 var Schema = mongoose.Schema;
@@ -24,5 +25,4 @@ UserSchema.pre('save', function (next) {
     this.ukey = uuid.v4();
     next();
 });
-
 module.exports = mongoose.model('User', UserSchema);

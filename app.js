@@ -10,7 +10,7 @@ app.use(defaultContentTypeMiddleware);
 app.use(bodyParser.json()); // for parsing application/json
 app.use(bodyParser.urlencoded({ extended: true })); // for parsing application/x-www-form-urlencoded
 
-// ×¼±¸Êı¾İ¿â
+// å‡†å¤‡æ•°æ®åº“
 String.prototype.startWith = function (str) {
     var reg = new RegExp("^" + str);
     return reg.test(this);
@@ -28,19 +28,19 @@ db.once('open', function callback() {
 
 //UserModel
 var UserModel = require('./models/user');
-//Èç¹ûÃ»ÓĞAdmin£¬»á×Ô¶¯´´½¨Ò»¸ö
+//å¦‚æœæ²¡æœ‰Adminï¼Œä¼šè‡ªåŠ¨åˆ›å»ºä¸€ä¸ª
 UserModel.findOne({ uid: "admin" }, function (err, u) {
     if (u === null) {
         var admin = new UserModel();
         admin.uid = "admin";
         admin.pwd = "admin";
-        admin.username = "¹ÜÀíÔ±";
+        admin.username = "ç®¡ç†å‘˜";
         admin.email = "admin@admin";
         admin.qq = "admin";
         admin.save();
     }
 });
-//¿ªÆôexpress
+//å¼€å¯express
 
 var UserRouter = require('./handlers/UserRouter');
 var DeviceRouter = require('./handlers/DeviceRouter');

@@ -7,7 +7,7 @@ var strLenValidator = [
     validate({
         validator: 'isLength',
         arguments: [1, 64],
-        message: '×Ö·û´®³¤¶È·¶Î§ÊÇ[1, 64]'
+        message: 'å­—ç¬¦ä¸²é•¿åº¦èŒƒå›´æ˜¯[1, 64]'
     })
 ];
 var DeviceSchema = new Schema({
@@ -18,4 +18,11 @@ var DeviceSchema = new Schema({
     description : { type: String, required: true, validate: strLenValidator }
 });
 
+DeviceSchema.statics = {
+  fetch: function (cb) {
+      return this
+          .find({})
+          .exec(cb);
+  }
+};
 module.exports = mongoose.model('Device', DeviceSchema);

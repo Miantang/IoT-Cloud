@@ -116,10 +116,10 @@ DeviceModel.findOne({id: 7}, function (err, dv) {
         device.save();
     }
 });
-DeviceModel.findOne({id: 98}, function (err, dv) {
+DeviceModel.findOne({id: 8}, function (err, dv) {
     if (dv === null) {
         var device = new DeviceModel({
-            id: 9,
+            id: 8,
             type: 'step',
             name: 'air',
             value: '{"switch":0,"controller":"0"}',
@@ -131,7 +131,7 @@ DeviceModel.findOne({id: 98}, function (err, dv) {
 DeviceModel.findOne({id: 9}, function (err, dv) {
     if (dv === null) {
         var device = new DeviceModel({
-            id: 10,
+            id: 9,
             type: 'step',
             name: 'tv',
             value: '{"switch":0,"controller":"0"}',

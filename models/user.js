@@ -1,5 +1,5 @@
 ﻿var uuid = require('node-uuid');
-var crypto = require('crypto');
+var bcrypt = require('bcryptjs');
 var mongoose = require('mongoose');
 var validate = require('mongoose-validator');
 var Schema = mongoose.Schema;
@@ -21,8 +21,24 @@ var UserSchema = new Schema({
     ukey: { type: String, unique: true }
 });
 
+UserSchema.methods = {
+  comparePassword: function (_pwd, cb) {
+      bcrypt.compare(_pwd, this.pwd, function (err, isMatch) {
+          if (err) return cb(err);
+          cb(null, isMatch);
+      });
+  }
+};
 UserSchema.pre('save', function (next) {
-    this.ukey = uuid.v4();
+    var user = this;
+    user.ukey = uuid.v4();
+    bcrypt.genSalt(10, function (err, salt) {
+        if (err) return next(err);
+        bcrypt.hash(user.pwd, salt, function (err, hash) {
+            if (err) return next(err);
+            user.pwd = hash;
+        });
+    });
     next();
 });
 module.exports = mongoose.model('User', UserSchema);

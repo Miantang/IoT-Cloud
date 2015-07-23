@@ -42,12 +42,6 @@ UserModel.findOne({ uid: "admin" }, function (err, u) {
 });
 //开启express
 
-var UserRouter = require('./handlers/UserRouter');
-var DeviceRouter = require('./handlers/DeviceRouter');
-app.use(UserRouter);
-app.use(DeviceRouter);
-app.get('/', function(req, res) {
-    res.send('home');
-});
+require('./routes')(app);
 
 module.exports = app;

@@ -10,7 +10,10 @@ module.exports = function(app) {
     //    next();
     //});
     app.get('/', function(req, res) {
-        res.send('home');
+        console.log('user in session: ', req.session.user);
+        res.render('index', {
+            title: '智能物联'
+        })
     });
 
     // Device

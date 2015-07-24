@@ -1,3 +1,3 @@
-{"k":"0000000078","o":"0000000170","v":"001"}
-{"_id":2,"_uid":2,"_dt":1437649486443,"_s":"98b18e34b8d6c6b1ed8da8b7f030bc40"}
-{"ukey":"9a013b17-7073-443b-9759-7e2f4d0a5601","qq":"admin","email":"admin@admin","username":"管理员","pwd":"admin","uid":"admin","_id":{"$wrap":"$oid","v":2},"__v":0}
+{"k":"0000000078","o":"0000000166","v":"001"}
+{"_id":2,"_uid":2,"_dt":1437744956093,"_s":"d059c47e628cd4e54589ead35f05308d"}
+{"ukey":"3dd55899-b0ec-4cc7-b98c-6dd62533d5b1","uid":"admin","pwd":"admin","username":"admin","email":"admin@admin","qq":"admin","_id":{"$wrap":"$oid","v":2},"__v":0}

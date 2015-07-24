@@ -1,7 +1,7 @@
 var UserModel = require('../models/user');
 var DeviceModel = require('../models/device');
 var config = require('../config');
-//ÊÇ·ñÈÏÖ¤µÄU-ApiKey
+//ï¿½Ç·ï¿½ï¿½ï¿½Ö¤ï¿½ï¿½U-ApiKey
 exports.isAuthenticated = function (req, res, next) {
     var userkey = req.get('U-ApiKey');
     UserModel.findOne({ ukey: userkey }, function (err, u) {

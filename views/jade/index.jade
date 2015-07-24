@@ -1,0 +1,18 @@
+﻿extends layout
+
+block content
+  #render
+    .am-panel.am-panel-default
+      .am-panel-hd
+      .am-panel-bd
+        .am-form
+          label 用户名：
+          input(type="text" data-bind="value: uid")
+          br
+          label 密码：
+          input(type="password" data-bind="value: pwd")
+          label(for="remember-me")
+            input#remember-me(type="checkbox" data-bind="checked: rembme")
+          br
+          .am-cf
+            input.am-btn.am-btn-primary.am-btn-sm.am-fl(type="button" data-bind="click: bt_login" value="登 录")

@@ -1,8 +1,6 @@
 (function($) 
 {
-  'use strict';
-
-  String.prototype.startWith = function (str) 
+  String.prototype.startWith = function (str)
   {
       var reg = new RegExp("^" + str);
       return reg.test(this);
@@ -174,24 +172,24 @@
               $.AMUI.progress.start();
               $.ajax({
                   type:"POST",
-                  url: "/index.php/userlogin",
+                  url: "/user/login",
                   data:{'username' : self.uid(), 'pwd': self.pwd()}
               }).done(function (data) {
-                console.log(data);
-                    if (data) 
+                    if (data)
                     {
                        // $.AMUI.utils.cookie.set('ukey', data.ukey);
                         $.AMUI.utils.cookie.set('uid', self.uid(), { expires: 7 });
                         $.AMUI.utils.cookie.set('pwd', self.pwd(), { expires: 7 });
-                        $.AMUI.utils.cookie.set('data', $.parseJSON(data));
-                      if ($.parseJSON(data).username == "admin") 
-                      {
-                          self.showuser(true);
-                      };
+                        $.AMUI.utils.cookie.set('data', data);
+                          if (data.username === "admin")
+                          {
+                              self.showuser(true);
+                          }
                       self.showuinfo(true);
                       self.shownav(true);
                       go("web/center_page.html");
                   } else {
+
                       $("#msg").html("登陆失败");
                       $('#my-prompt').modal('open');
                       self.uid("");
@@ -212,7 +210,14 @@
 
   function go(url)
   {
-      $("#render").load(url);
+      console.log('go url', url);
+      $("#render").load(url, null, function (res, status, xhr) {
+          if ( status == "error" ) {
+              var msg = "Sorry but there was an error: ";
+              $( "#error" ).html( msg + xhr.status + " " + xhr.statusText );
+          }
+          console.log('load success');
+      });
       $("#menu1").offCanvas('close');
   }
 
@@ -223,4 +228,100 @@
       $.AMUI.utils.cookie.set('pwd', null);
   }
 
-})(jQuery);
+})($);
+function centerVM() {
+        var self = this;
+        self.disLed2 = function() {
+            $("#render").load("web/dis_led2_page.html");
+        };
+        self.disVolume = function() {
+            $("#render").load("web/dis_volume_page.html");
+        };
+        self.disCam = function() {
+            $("#render").load("web/dis_cam_page.html");
+        };
+
+        self.disAir = function() {
+            $("#render").load("web/dis_air_page.html");
+        };
+
+        self.disTV = function() {
+            $("#render").load("web/dis_tv_page.html");
+        };
+        
+        self.switchChanged = function (dv) {
+            var tempValue;
+            if (dv.value === 1) 
+            {
+                dv.value = 0;
+                dv.imgValue(0);
+                tempValue = dv.value;
+                console.log("1 to ",tempValue);
+                $("#msg").html("1 to "+tempValue);
+                $('#my-prompt').modal('open');
+            }else{
+                dv.value = 1;
+                dv.imgValue(1);
+                tempValue = dv.value;
+                console.log("0 to ", tempValue);
+                $("#msg").html("0 to "+tempValue);
+                $('#my-prompt').modal('open');
+                
+            }
+            var switchData = '{"type":"switch","value":'+ dv.value+'}';
+
+            $.ajax({
+                type: "POST",
+                //url: "/index.php/mqttdevices/"  + dv.id,
+                url: "/devices/"  + dv.id,
+                data: JSON.parse(switchData),
+                success: function ()
+                {
+                },
+                error: function (xhr, status, error) 
+                {
+                    $("#msg").html(xhr.responseText);
+                    $('#my-prompt').modal('open');
+                }
+            });
+        };
+
+        self.devices = ko.observableArray();
+
+        self.loaddata = function () 
+        {
+            $.ajax({
+                url: "/devices"
+            }).done(function (data) 
+            {
+                if (data.length === 0) 
+                {
+                    $("#render").load("web/nav_page.html");
+                } 
+                else 
+                {
+                    if(0 === self.devices().length)
+                    {
+                       for (var i = 0; i < data.length; i++) 
+                        {
+                            data[i].description = decodeURI(data[i].description);
+                            
+                            if("switch" === data[i].type)
+                            {
+                                data[i].imgValue = ko.observable( data[i].value );
+                            }
+                            self.devices.push(data[i]);
+                        }
+                    }
+                    else
+                    {
+                        // for (var i = 0; i < data.length; i++) 
+                        // {
+                        //     self.devices()[i].value( Boolean(data[i].value) );
+                        // };
+                    }
+                }
+            }).fail(function (xhr) {
+            });
+        };
+    }

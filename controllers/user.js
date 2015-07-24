@@ -48,19 +48,47 @@ exports.login = function (req, res) {
         if(!u) {
             return res.redirect('/');
         }
-        u.comparePassword(pwd, function (err, isMatch) {
-            if (err) console.log(err);
-            if (isMatch ) {
-                req.session.user = u;
-                console.log("login succeed!");
-                return res.redirect('/');
-            } else {
-                return res.redirect('/');
-            }
-        });
+        //u.comparePassword(pwd, function (err, isMatch) {
+        //    if (err) console.log(err);
+        //    if (isMatch ) {
+        //        //req.session.user = u;
+        //        console.log("login succeed!");
+        //        return res.redirect('/right');
+        //    } else {
+        //        console.log("cant login");
+        //        return res.redirect('/wrong');
+        //    }
+        //});
+        if(u.isRight(pwd)) {
+            req.session.user = u;
+            console.log("login succeed!");
+            return res.json({'username': uid});
+        } else {
+            console.log("cant login");
+        }
     });
 };
-esports.logout = function (req, res) {
+exports.logout = function (req, res) {
     delete req.session.user;
     res.redirect('/');
+};
+// midware for user
+exports.loginRequired = function(req, res, next) {
+    var user = req.session.user;
+
+    if (!user) {
+        console.log("should login");
+        return res.redirect('/login');
+    }
+    next();
+}
+
+exports.adminRequired = function(req, res, next) {
+    var user = req.session.user;
+
+    if (user !== 'admin') {
+        return res.redirect('/login');
+    }
+
+    next();
 };

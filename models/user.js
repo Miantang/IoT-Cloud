@@ -22,12 +22,19 @@ var UserSchema = new Schema({
 });
 
 UserSchema.methods = {
-  comparePassword: function (_pwd, cb) {
+    comparePassword: function (_pwd, cb) {
       bcrypt.compare(_pwd, this.pwd, function (err, isMatch) {
           if (err) return cb(err);
           cb(null, isMatch);
       });
-  }
+    },
+    isRight: function (_pwd) {
+        if(_pwd === this.pwd) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 };
 UserSchema.pre('save', function (next) {
     var user = this;

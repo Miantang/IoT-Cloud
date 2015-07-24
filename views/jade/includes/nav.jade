@@ -1,0 +1,30 @@
+nav.am-menu.am-menu-offcanvas1(data-bind="visible: shownav" data-am-widget="menu" data-am-menu-offcanvas)
+  a.am-menu-toggle(href="javascript: void(0)")
+    i.am-menu-toggle-icon.am-icon-bars
+  .am-offcanvas#menu1
+    .am-offcanvas-bar.am-offcanvas-bar-flip
+      ul.am-menu-nav.am-avg-sm-1
+        li
+          a(href="##")
+            i.am-header-icon.am-icon-user
+              span.am-header-nav-title(data-bind="text: uid")
+        li
+          a(data-bind="click: link_user_center" href="##") 设备主页
+        li.am-parent(data-bind="visible: showuser" )
+          a(href="##") 子用户管理
+          ul.am-menu-sub.am-collapse.am-avg-sm-2
+            li
+              a(href="##" data-bind="click:link_acaddus") 添加子用户
+            li
+              a(href="##" data-bind="click:link_acuss") 管理子用户
+        li.am-parent
+          a 我的账户
+          ul.am-menu-sub.am-collapse.am-avg-sm-2
+            li
+              a(data-bind="click: link_account" href="##") 账户设置
+            li
+              a(data-bind="click: link_accountEditPwd" href="##") 修改密码
+        li
+          a(data-bind="click: link_user, visible: showuinfo" href="#")
+            span.am-header-nav-title 账户注销
+

@@ -22,12 +22,13 @@ db.once('open', function callback() {
 //创建一个管理员
 UserModel.findOne({ uid: "admin" }, function (err, u) {
     if (u === null) {
-        var admin = new UserModel();
-        admin.uid = "admin";
-        admin.pwd = "admin";
-        admin.username = "管理员";
-        admin.email = "admin@admin";
-        admin.qq = "admin";
+        var admin = new UserModel({
+            uid: 'admin',
+            pwd: 'admin',
+            username: 'admin',
+            email: 'admin@admin',
+            qq: 'admin'
+        });
         admin.save();
     }
 });
@@ -96,7 +97,7 @@ DeviceModel.findOne({id: 6}, function (err, dv) {
     if (dv === null) {
         var device = new DeviceModel({
             id: 6,
-            type: 'switch',
+            type: 'step',
             name: 'camera',
             value: '0',
             description: '摄像机'

@@ -22,6 +22,7 @@ app.use(session({
     secret: 'iot-cloud'
 }));
 app.use(express.static(path.join(__dirname, 'public')));
+
 // 准备数据库
 String.prototype.startWith = function (str) {
     var reg = new RegExp("^" + str);
@@ -52,7 +53,6 @@ UserModel.findOne({ uid: "admin" }, function (err, u) {
         admin.save();
     }
 });
-//开启express
 
 require('./routes')(app);
 

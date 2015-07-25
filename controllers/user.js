@@ -81,7 +81,7 @@ exports.loginRequired = function(req, res, next) {
         return res.redirect('/login');
     }
     next();
-}
+};
 
 exports.adminRequired = function(req, res, next) {
     var user = req.session.user;

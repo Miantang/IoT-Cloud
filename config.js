@@ -6,5 +6,5 @@
     cross : false,//Can I cross Domain
     production: true,
     mqttServer: true,
-    mqttPort: 3002
+    mqttPort: 1883
 };

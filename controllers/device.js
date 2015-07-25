@@ -1,7 +1,9 @@
 var UserModel = require('../models/user');
 var DeviceModel = require('../models/device');
 var config = require('../config');
-//�Ƿ���֤��U-ApiKey
+var client = require('./mqttClient');
+
+//U-ApiKey
 exports.isAuthenticated = function (req, res, next) {
     var userkey = req.get('U-ApiKey');
     UserModel.findOne({ ukey: userkey }, function (err, u) {
@@ -23,7 +25,7 @@ exports.getAllDevices = function (req, res) {
 exports.updateDevice = function (req, res) {
     var value;
     if(req.body.type === 'switch') {
-        value = req.param('value');
+        value = '{"switch":' + req.param('value') + '}';
     } else if(req.body.type === 'step') {
         var reqSwitch = req.body.switch;
         var controller = req.body.controller;
@@ -44,6 +46,9 @@ exports.updateDevice = function (req, res) {
         } else {
             res.send('post success!');
             res.end();
+            if(config.mqttServer) {
+                client.publish('d'+req.params.id, value);
+            }
         }
     });
 };
@@ -80,7 +85,11 @@ exports.getDeviceValue = function (req, res) {
         } else {
             if(dv !== null) {
                 var obj = dv.toObject();
-                res.send(obj.value);
+                if('step' ===  obj.type) {
+                    res.send(obj.value);
+                } else {
+                    res.send('{"switch":' + obj.value + '}');
+                }
             } else {
                 res.end();
             }

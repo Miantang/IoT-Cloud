@@ -72,7 +72,7 @@ exports.logout = function (req, res) {
     delete req.session.user;
     res.redirect('/');
 };
-// midware for user
+// middleware for user
 exports.loginRequired = function(req, res, next) {
     var user = req.session.user;
 
